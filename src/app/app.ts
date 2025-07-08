@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
-  imports: [BreadcrumbModule],
+  imports: [CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
