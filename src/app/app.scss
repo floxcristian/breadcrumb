@@ -1,80 +1,115 @@
-.breadcrumb-container {
-  width: 100%;
-  max-width: 100%;
-  padding: 1rem;
-  background: #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+.custom-breadcrumb-wrapper {
   margin: 1rem;
-}
-
-.custom-breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0;
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
-.breadcrumb-group {
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap; // Mantener el texto y la flecha juntos
-  margin-right: 0.25rem; // Pequeño espacio entre grupos
-}
-
-.breadcrumb-link {
-  display: inline-block;
-  text-decoration: none;
-  color: #6b7280;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-  transition: all 0.2s ease;
   
-  // Permitir que textos muy largos se rompan, pero solo en espacios
-  word-break: break-word;
-  hyphens: auto;
-  
-  &:hover:not(.active) {
-    background-color: #f3f4f6;
-    color: #374151;
+  // Sobrescribir estilos de PrimeNG para el contenedor principal
+  ::ng-deep .p-breadcrumb {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    
+    // El contenedor de la lista debe permitir wrap
+    .p-breadcrumb-list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow: visible !important; // Eliminar scroll
+      white-space: normal !important; // Permitir wrap
+    }
+    
+    // Cada item del breadcrumb
+    .p-breadcrumb-item {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap; // Mantener texto y separador juntos
+      margin: 0;
+      
+      // El enlace dentro del item
+      .p-breadcrumb-item-link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: #6b7280;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        
+        // Permitir que textos largos se rompan en palabras
+        word-break: break-word;
+        hyphens: auto;
+        white-space: normal;
+        
+        &:hover {
+          background-color: #f3f4f6;
+          color: #374151;
+        }
+        
+        // Último elemento (activo)
+        &:not([href]) {
+          color: #1f2937;
+          font-weight: 500;
+          cursor: default;
+        }
+      }
+      
+      // El separador (flecha)
+      .p-breadcrumb-item-separator {
+        display: inline-flex;
+        align-items: center;
+        margin: 0 0.5rem;
+        color: #9ca3af;
+        font-size: 0.875rem;
+        flex-shrink: 0; // No permitir que el separador se encoja
+      }
+      
+      // Asegurar que el último item no tenga separador
+      &:last-child .p-breadcrumb-item-separator {
+        display: none;
+      }
+    }
   }
-  
-  &.active {
-    color: #1f2937;
-    font-weight: 500;
-    cursor: default;
+}
+
+// Media queries para responsive
+@media (max-width: 768px) {
+  .custom-breadcrumb-wrapper ::ng-deep .p-breadcrumb {
+    padding: 0.75rem;
+    
+    .p-breadcrumb-item {
+      .p-breadcrumb-item-link {
+        padding: 0.125rem 0.375rem;
+        font-size: 0.8125rem;
+      }
+      
+      .p-breadcrumb-item-separator {
+        margin: 0 0.375rem;
+        font-size: 0.75rem;
+      }
+    }
   }
 }
 
-.breadcrumb-separator {
-  display: inline-flex;
-  align-items: center;
-  margin: 0 0.5rem;
-  color: #9ca3af;
-  flex-shrink: 0;
-  
-  svg {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-// Media query para pantallas muy pequeñas
 @media (max-width: 480px) {
-  .breadcrumb-group {
-    // En pantallas muy pequeñas, permitir que se rompa después de cada elemento
-    margin-bottom: 0.25rem;
-  }
-  
-  .breadcrumb-link {
-    // Reducir padding en móviles
-    padding: 0.125rem 0.25rem;
-    font-size: 0.8125rem;
-  }
-  
-  .breadcrumb-separator {
-    margin: 0 0.25rem;
+  .custom-breadcrumb-wrapper ::ng-deep .p-breadcrumb {
+    padding: 0.5rem;
+    
+    .p-breadcrumb-item {
+      .p-breadcrumb-item-link {
+        padding: 0.125rem 0.25rem;
+        font-size: 0.75rem;
+      }
+      
+      .p-breadcrumb-item-separator {
+        margin: 0 0.25rem;
+        font-size: 0.7rem;
+      }
+    }
   }
 }
