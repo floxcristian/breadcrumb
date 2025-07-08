@@ -4,48 +4,42 @@
     background: transparent;
     border: none;
     padding: 0;
-    overflow: visible; // Eliminar scroll
+    overflow: visible;
     
     .p-breadcrumb-list {
       display: flex;
-      flex-wrap: wrap; // Permitir que los elementos se envuelvan
-      align-items: center;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 0;
       margin: 0;
       padding: 0;
       list-style: none;
-      overflow: visible; // Eliminar scroll
+      overflow: visible;
+      width: 100%;
       
       .p-breadcrumb-item {
         display: flex;
         align-items: center;
-        white-space: nowrap; // Evitar saltos de línea dentro del elemento
-        flex-shrink: 0; // Evitar que se compriman
+        flex-shrink: 0;
+        max-width: 100%;
         
         .p-breadcrumb-link {
-          display: inline-flex;
-          align-items: center;
+          display: inline-block;
           text-decoration: none;
           color: #6b7280;
           font-size: 0.875rem;
           padding: 0.25rem 0.5rem;
           border-radius: 0.375rem;
           transition: all 0.2s ease;
-          white-space: nowrap; // Mantener texto en una línea
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 200px; // Limitar ancho máximo
           
           &:hover {
             background-color: #f3f4f6;
             color: #374151;
           }
-        }
-        
-        // Separador entre elementos
-        &:not(:last-child)::after {
-          content: '>';
-          margin: 0 0.5rem;
-          color: #9ca3af;
-          font-size: 0.875rem;
-          flex-shrink: 0;
         }
         
         // Último elemento (activo)
@@ -61,16 +55,28 @@
           }
         }
       }
+      
+      // Separadores nativos de PrimeNG
+      .p-breadcrumb-separator {
+        margin: 0 0.5rem;
+        color: #9ca3af;
+        font-size: 0.875rem;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
 
-// Contenedor principal con ancho máximo
+// Contenedor principal
 .breadcrumb-container {
+  width: 100%;
   max-width: 100%;
   padding: 1rem;
   background: #ffffff;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   margin: 1rem;
+  overflow: hidden; // Evitar desbordamiento
 }
