@@ -44,11 +44,9 @@
         transition: all 0.2s ease;
         line-height: 1.5;
         
-        // IMPORTANTE: No permitir que el texto se rompa dentro del enlace
+        // IMPORTANTE: Mostrar texto completo sin truncar
         white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 250px; // Limitar ancho pero sin romper el texto
+        // Removido: overflow: hidden, text-overflow: ellipsis, max-width
         
         &:hover {
           background-color: #f3f4f6;
@@ -77,15 +75,6 @@
       // Asegurar que el último item no tenga separador
       &:last-child .p-breadcrumb-item-separator {
         display: none;
-      }
-    }
-    
-    // Para pantallas muy pequeñas, reducir el max-width
-    @media (max-width: 480px) {
-      .p-breadcrumb-item {
-        .p-breadcrumb-item-link {
-          max-width: 180px;
-        }
       }
     }
   }
