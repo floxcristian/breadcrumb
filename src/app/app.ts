@@ -16,7 +16,7 @@ export class App implements OnInit {
   ngOnInit() {
     this.items = [
       { label: 'Inicio' },
-      { label: 'Repuestos Para Equipos De Carga mmaama mama' },
+      { label: 'Repuestos Para Equipos De Carga' },
       { label: 'Componentes De Remolque Y Semiremolque' },
       { label: 'Estanques Y Dispensadores Para Equipos De Carga' },
     ];

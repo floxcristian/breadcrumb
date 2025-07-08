@@ -13,20 +13,21 @@
     .p-breadcrumb-list {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+      align-items: flex-start;
       gap: 0;
       margin: 0;
       padding: 0;
       list-style: none;
-      overflow: visible !important; // Eliminar scroll
-      white-space: normal !important; // Permitir wrap
+      overflow: visible !important;
+      white-space: normal !important;
+      line-height: 1.6;
     }
     
-    // Cada item del breadcrumb
+    // Cada item del breadcrumb - MANTENER TEXTO Y FLECHA JUNTOS
     .p-breadcrumb-item {
       display: inline-flex;
       align-items: center;
-      white-space: nowrap; // Mantener texto y separador juntos
+      flex-wrap: nowrap; // Nunca separar el contenido interno
       margin: 0;
       
       // El enlace dentro del item
@@ -40,10 +41,10 @@
         transition: all 0.2s ease;
         line-height: 1.5;
         
-        // Permitir que textos largos se rompan en palabras
+        // Permitir que textos largos se rompan SOLO en espacios
         word-break: break-word;
+        overflow-wrap: break-word;
         hyphens: auto;
-        white-space: normal;
         
         &:hover {
           background-color: #f3f4f6;
@@ -58,18 +59,40 @@
         }
       }
       
-      // El separador (flecha)
+      // El separador (flecha) - DEBE ESTAR PEGADO AL TEXTO
       .p-breadcrumb-item-separator {
         display: inline-flex;
         align-items: center;
-        margin: 0 0.5rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
         color: #9ca3af;
-        flex-shrink: 0; // No permitir que el separador se encoja
+        flex-shrink: 0;
+        white-space: nowrap; // La flecha nunca se separa
       }
       
       // Asegurar que el último item no tenga separador
       &:last-child .p-breadcrumb-item-separator {
         display: none;
+      }
+      
+      // CLAVE: Hacer que cada item completo (texto + flecha) sea una unidad
+      // que se mueva junta a la siguiente línea si no cabe
+      flex-shrink: 0;
+      white-space: nowrap;
+      
+      // Solo permitir wrap en espacios naturales del texto
+      .p-breadcrumb-item-link {
+        white-space: normal;
+        max-width: 300px; // Limitar ancho para forzar wrap inteligente
+      }
+    }
+    
+    // Para pantallas muy pequeñas, permitir más flexibilidad
+    @media (max-width: 480px) {
+      .p-breadcrumb-item {
+        .p-breadcrumb-item-link {
+          max-width: 200px;
+        }
       }
     }
   }
@@ -81,12 +104,9 @@
     padding: 0.75rem;
     
     .p-breadcrumb-item {
-      .p-breadcrumb-item-link {
-        padding: 0.125rem 0.375rem;
-      }
-      
       .p-breadcrumb-item-separator {
-        margin: 0 0.375rem;
+        margin-left: 0.375rem;
+        margin-right: 0.375rem;
       }
     }
   }
@@ -97,12 +117,9 @@
     padding: 0.5rem;
     
     .p-breadcrumb-item {
-      .p-breadcrumb-item-link {
-        padding: 0.125rem 0.25rem;
-      }
-      
       .p-breadcrumb-item-separator {
-        margin: 0 0.25rem;
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
       }
     }
   }
