@@ -13,22 +13,25 @@
     .p-breadcrumb-list {
       display: flex;
       flex-wrap: wrap;
-      align-items: flex-start;
+      align-items: center;
       gap: 0;
       margin: 0;
       padding: 0;
       list-style: none;
       overflow: visible !important;
-      white-space: normal !important;
       line-height: 1.6;
     }
     
-    // Cada item del breadcrumb - MANTENER TEXTO Y FLECHA JUNTOS
+    // Cada item del breadcrumb - MANTENER COMO UNIDAD COMPLETA
     .p-breadcrumb-item {
       display: inline-flex;
       align-items: center;
-      flex-wrap: nowrap; // Nunca separar el contenido interno
+      flex-wrap: nowrap;
       margin: 0;
+      
+      // CLAVE: Cada item completo (texto + flecha) es una unidad indivisible
+      flex-shrink: 0;
+      white-space: nowrap; // Nunca romper dentro del item
       
       // El enlace dentro del item
       .p-breadcrumb-item-link {
@@ -41,10 +44,11 @@
         transition: all 0.2s ease;
         line-height: 1.5;
         
-        // Permitir que textos largos se rompan SOLO en espacios
-        word-break: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
+        // IMPORTANTE: No permitir que el texto se rompa dentro del enlace
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 250px; // Limitar ancho pero sin romper el texto
         
         &:hover {
           background-color: #f3f4f6;
@@ -67,31 +71,20 @@
         margin-right: 0.5rem;
         color: #9ca3af;
         flex-shrink: 0;
-        white-space: nowrap; // La flecha nunca se separa
+        white-space: nowrap;
       }
       
       // Asegurar que el último item no tenga separador
       &:last-child .p-breadcrumb-item-separator {
         display: none;
       }
-      
-      // CLAVE: Hacer que cada item completo (texto + flecha) sea una unidad
-      // que se mueva junta a la siguiente línea si no cabe
-      flex-shrink: 0;
-      white-space: nowrap;
-      
-      // Solo permitir wrap en espacios naturales del texto
-      .p-breadcrumb-item-link {
-        white-space: normal;
-        max-width: 300px; // Limitar ancho para forzar wrap inteligente
-      }
     }
     
-    // Para pantallas muy pequeñas, permitir más flexibilidad
+    // Para pantallas muy pequeñas, reducir el max-width
     @media (max-width: 480px) {
       .p-breadcrumb-item {
         .p-breadcrumb-item-link {
-          max-width: 200px;
+          max-width: 180px;
         }
       }
     }
